@@ -17,10 +17,17 @@ export class CartService {
   }
 
   addToCart(p: Product) {
-    this.cartitems.push(p);
-    // add p.price to totalprice
-    this.totalprice += p.price;
+    let header = -1;
+    header = this.cartitems.findIndex(itemlist => {
+      itemlist.id === p.id
+    });
+    if(header != -1){
+      this.cartitems[header].amount+=1
+    }else if(header === -1){
+      this.cartitems.push(p);
+    }
     this.notifyDataChange();
+    this.result();
   }
 
   getCartItem() {
@@ -42,9 +49,9 @@ export class CartService {
     return this.cartitems;
   }
 
-  clearItem(i: any){
+  clearItem(it: any){
     let header = this.cartitems.findIndex(itemlist => {
-      itemlist.id === i.id
+      itemlist.id === it.id
     });
     this.cartitems.splice(header,1)
     this.result();
