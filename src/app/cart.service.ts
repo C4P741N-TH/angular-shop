@@ -18,16 +18,14 @@ export class CartService {
 
   addToCart(p: Product) {
     let header = -1;
-    header = this.cartitems.findIndex(itemlist => {
-      itemlist.id === p.id
-    });
+    header = this.cartitems.findIndex(itemlist => itemlist.id === p.id);
     if(header != -1){
       this.cartitems[header].amount+=1
     }else if(header === -1){
       this.cartitems.push(p);
     }
-    this.notifyDataChange();
     this.result();
+    this.notifyDataChange();
   }
 
   getCartItem() {
